@@ -325,51 +325,50 @@
   /* ── GALLERY GRID ── */
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
   }
-  .gallery-grid.two-col { grid-template-columns: repeat(2, 1fr); }
-  .gallery-grid.mixed {}
 
   .gallery-item {
     position: relative;
-    overflow: hidden;
     cursor: pointer;
     background: var(--warm-gray);
+    border: 1px solid var(--warm-gray);
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .gallery-item.wide { grid-column: span 2; }
-  .gallery-item.tall { grid-row: span 2; }
+  .gallery-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 20px rgba(200,82,42,0.15);
+  }
 
   .gallery-item img {
-    width: 100%; height: 100%;
-    object-fit: cover;
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    object-position: center;
     display: block;
-    min-height: 220px;
-    transition: transform 0.5s ease;
+    background: #fff;
+    padding: 6px;
+    transition: transform 0.3s ease;
   }
-  .gallery-item:hover img { transform: scale(1.03); }
+  .gallery-item:hover img { transform: scale(1.02); }
 
   .gallery-item .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(13,13,13,0);
-    display: flex;
-    align-items: flex-end;
-    padding: 1.5rem;
-    transition: background 0.3s;
+    padding: 0.5rem 0.7rem;
+    background: #fff;
+    border-top: 1px solid var(--warm-gray);
   }
-  .gallery-item:hover .overlay { background: rgba(13,13,13,0.5); }
 
   .overlay-text {
-    transform: translateY(10px);
-    opacity: 0;
-    transition: all 0.3s;
-    color: #fff;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
+    color: var(--mid-gray);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
+    display: block;
   }
-  .gallery-item:hover .overlay-text { transform: translateY(0); opacity: 1; }
+  .gallery-item:hover .overlay-text { color: var(--accent); }
 
   /* HTML banner iframe */
   .banner-embed {
@@ -545,7 +544,7 @@
     section { padding: 5rem 2rem; }
     #om, #kontakt { grid-template-columns: 1fr; gap: 3rem; }
     .about-img-wrap { max-height: 350px; }
-    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr 1fr; }
     footer { flex-direction: column; gap: 1rem; padding: 2rem; text-align: center; }
   }
 </style>
@@ -572,10 +571,6 @@
       <div class="hero-meta-item">
         <div class="hero-meta-num">10+</div>
         <div class="hero-meta-label">År erfaring</div>
-      </div>
-      <div class="hero-meta-item">
-        <div class="hero-meta-num">4</div>
-        <div class="hero-meta-label">Fagområder</div>
       </div>
     </div>
     <div class="hero-cta">
@@ -635,7 +630,7 @@
   <!-- BANNERE -->
   <div class="tab-panel active" id="tab-bannere">
     <div class="gallery-grid">
-      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300_BW2_TU.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/1000x300_BW2_TU.jpg')">
         <img src="imgs/1000x300_BW2_TU.jpg" alt="TU + Digi banner">
         <div class="overlay"><span class="overlay-text">TU + Digi – 1000×300</span></div>
       </div>
@@ -643,7 +638,7 @@
         <img src="imgs/300x600_gdpr.jpg" alt="GDPR-dagen">
         <div class="overlay"><span class="overlay-text">GDPR-dagen – 300×600</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300_2025.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/1000x300_2025.jpg')">
         <img src="imgs/1000x300_2025.jpg" alt="Banner 2025">
         <div class="overlay"><span class="overlay-text">Banner 2025 – 1000×300</span></div>
       </div>
@@ -651,7 +646,7 @@
         <img src="imgs/300x600_Konferansierer.jpg" alt="Gulltasten">
         <div class="overlay"><span class="overlay-text">Gulltasten – 300×600</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300_20204.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/1000x300_20204.jpg')">
         <img src="imgs/1000x300_20204.jpg" alt="Software 2020">
         <div class="overlay"><span class="overlay-text">Software 2020 – 1000×300</span></div>
       </div>
@@ -659,7 +654,7 @@
         <img src="imgs/320x250_VA_aug25_3.jpg" alt="Oslo VA">
         <div class="overlay"><span class="overlay-text">Oslo VA – 320×250</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/580x400-ører.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/580x400-ører.jpg')">
         <img src="imgs/580x400-ører.jpg" alt="Påskekampanje">
         <div class="overlay"><span class="overlay-text">Påskekampanje – 580×400</span></div>
       </div>
@@ -677,7 +672,7 @@
   <!-- INFOGRAFIKK -->
   <div class="tab-panel" id="tab-infografikk">
     <div class="gallery-grid">
-      <div class="gallery-item wide" onclick="openLightbox('imgs/aktiv-marathonlise_km210116-011.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/aktiv-marathonlise_km210116-011.jpg')">
         <img src="imgs/aktiv-marathonlise_km210116-011.jpg" alt="Marathon-kart">
         <div class="overlay"><span class="overlay-text">Aktiv – Maratonkart</span></div>
       </div>
@@ -685,7 +680,7 @@
         <img src="imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg" alt="Offshore vindturbiner">
         <div class="overlay"><span class="overlay-text">Offshore vindturbiner</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg')">
         <img src="imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg" alt="Vindkraft kostnader">
         <div class="overlay"><span class="overlay-text">Vindkraft – kostnadssammenligning</span></div>
       </div>
@@ -701,7 +696,7 @@
         <img src="imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg" alt="Ukraina kjernekraft">
         <div class="overlay"><span class="overlay-text">Ukraina – kjernekraft</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/krigen-i-syria_km011215-011.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/krigen-i-syria_km011215-011.jpg')">
         <img src="imgs/krigen-i-syria_km011215-011.jpg" alt="Brennpunkt Syria">
         <div class="overlay"><span class="overlay-text">Brennpunkt Syria – energiallianser</span></div>
       </div>
@@ -735,7 +730,7 @@
   <!-- KONSEPTER -->
   <div class="tab-panel" id="tab-konsepter">
     <div class="gallery-grid">
-      <div class="gallery-item wide" onclick="openLightbox('imgs/Fullskjerm_22.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/Fullskjerm_22.jpg')">
         <img src="imgs/Fullskjerm_22.jpg" alt="brAIn konferanse">
         <div class="overlay"><span class="overlay-text">brAIn – fullskjerm</span></div>
       </div>
@@ -747,11 +742,11 @@
         <img src="imgs/300x600.jpg" alt="Inside Telecom">
         <div class="overlay"><span class="overlay-text">Inside Telecom – 300×600</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/1000x300.jpg')">
         <img src="imgs/1000x300.jpg" alt="TU Electrified">
         <div class="overlay"><span class="overlay-text">TU Electrified – 1000×300</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300_mars_2.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/1000x300_mars_2.jpg')">
         <img src="imgs/1000x300_mars_2.jpg" alt="Attack 2026">
         <div class="overlay"><span class="overlay-text">Attack 2026 – 1000×300</span></div>
       </div>
@@ -767,7 +762,7 @@
         <img src="imgs/600x300_nye.jpg" alt="Tek.Rekruttering">
         <div class="overlay"><span class="overlay-text">Tek.Rekruttering – 600×300</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/skjermer-kandidatpresentasjon.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/skjermer-kandidatpresentasjon.jpg')">
         <img src="imgs/skjermer-kandidatpresentasjon.jpg" alt="Kandidatpresentasjon skjermer">
         <div class="overlay"><span class="overlay-text">Kandidatpresentasjon – skjermvisning</span></div>
       </div>
@@ -777,7 +772,7 @@
   <!-- DIVERSE -->
   <div class="tab-panel" id="tab-diverse">
     <div class="gallery-grid">
-      <div class="gallery-item wide" onclick="openLightbox('imgs/forsidebanner_face_1206171.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/forsidebanner_face_1206171.jpg')">
         <img src="imgs/forsidebanner_face_1206171.jpg" alt="Vinjerock forsidebanner">
         <div class="overlay"><span class="overlay-text">Vinjerock – forsidebanner</span></div>
       </div>
@@ -797,7 +792,7 @@
         <img src="imgs/Eksempel.jpg" alt="Vinjerock program">
         <div class="overlay"><span class="overlay-text">Vinjerock – programdesign</span></div>
       </div>
-      <div class="gallery-item wide" onclick="openLightbox('imgs/14tu19_store_reportasje_3087-start.jpg')">
+      <div class="gallery-item" onclick="openLightbox('imgs/14tu19_store_reportasje_3087-start.jpg')">
         <img src="imgs/14tu19_store_reportasje_3087-start.jpg" alt="TU reportasje">
         <div class="overlay"><span class="overlay-text">Teknisk Ukeblad – reportasje</span></div>
       </div>
@@ -823,9 +818,9 @@
       <span class="contact-link-icon">in</span>
       <span>LinkedIn – kjersma</span>
     </a>
-    <a href="mailto:kmagnussen.design@gmail.com" class="contact-link reveal">
+    <a href="/cdn-cgi/l/email-protection#5c37313d3b32292f2f39327238392f353b321c3b313d3530723f3331" class="contact-link reveal">
       <span class="contact-link-icon">@</span>
-      <span>kmagnussen.design@gmail.com</span>
+      <span><span class="__cf_email__" data-cfemail="0d66606c6a63787e7e68632369687e646a634d6a606c6461236e6260">[email&#160;protected]</span></span>
     </a>
   </div>
 
@@ -868,7 +863,7 @@
   <img id="lightbox-img" src="" alt="">
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Nav scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -913,11 +908,4 @@
     const name = this.name.value;
     const email = this.email.value;
     const subject = encodeURIComponent(this.subject.value || 'Henvendelse fra kjersma.no');
-    const body = encodeURIComponent(`Hei Kjersti,\n\n${this.message.value}\n\nMed vennlig hilsen,\n${name}\n${email}`);
-    window.location.href = `mailto:kmagnussen.design@gmail.com?subject=${subject}&body=${body}`;
-    document.getElementById('formSuccess').style.display = 'block';
-    this.reset();
-  });
-</script>
-</body>
-</html>
+    const body = encodeURIComponent(`Hei Kjersti,\n\n${this.message.value}\n
