@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kjersma.no – Kjersti Magnussen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0d0d0d;
+    --off-white: #f5f2ed;
+    --warm-gray: #e8e4de;
+    --mid-gray: #b0a99e;
+    --accent: #c8522a;
+    --accent-light: #e8d5cc;
+    --text: #1a1814;
+    --font-serif: 'DM Serif Display', serif;
+    --font-sans: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off-white);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: var(--off-white);
+    border-bottom: 1px solid var(--warm-gray);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 5rem;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: var(--font-serif);
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    margin-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #5a554e;
+    max-width: 420px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-meta {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.65s forwards;
+  }
+  .hero-meta-item { text-align: left; }
+  .hero-meta-num {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--black);
+  }
+  .hero-meta-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: #a83e1c; transform: translateY(-2px); }
+
+  .btn-ghost {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    border: 1px solid var(--text);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--black); color: #fff; transform: translateY(-2px); }
+
+  .hero-right {
+    background: var(--warm-gray);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    opacity: 0;
+    animation: fadeIn 1s 0.6s forwards;
+  }
+  .hero-img {
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .hero-img:first-child { grid-row: span 2; }
+  .hero-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .hero-img:hover img { transform: scale(1.04); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 7rem 5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-num {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    color: var(--accent-light);
+    line-height: 1;
+    font-style: italic;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    color: var(--black);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── ABOUT ── */
+  #om {
+    background: var(--black);
+    color: var(--off-white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  #om .section-num { color: #3a3530; }
+  #om .section-title { color: var(--off-white); }
+
+  .about-text {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #b5b0aa;
+  }
+  .about-text p + p { margin-top: 1.2rem; }
+
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .tag {
+    padding: 0.4rem 1rem;
+    border: 1px solid #3a3530;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+  }
+
+  .about-right { position: relative; }
+  .about-img-wrap {
+    position: relative;
+    aspect-ratio: 3/4;
+    max-height: 500px;
+    overflow: hidden;
+  }
+  .about-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .about-img-deco {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 60%;
+    height: 60%;
+    border: 1px solid var(--accent);
+    z-index: -1;
+  }
+
+  /* ── PORTFOLIO TABS ── */
+  #portefolje { background: var(--off-white); }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid var(--warm-gray);
+  }
+  .tab-btn {
+    padding: 1rem 2rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── GALLERY GRID ── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+  .gallery-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid.mixed {}
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--warm-gray);
+  }
+  .gallery-item.wide { grid-column: span 2; }
+  .gallery-item.tall { grid-row: span 2; }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 220px;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.03); }
+
+  .gallery-item .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13,13,13,0);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    transition: background 0.3s;
+  }
+  .gallery-item:hover .overlay { background: rgba(13,13,13,0.5); }
+
+  .overlay-text {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.3s;
+    color: #fff;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .gallery-item:hover .overlay-text { transform: translateY(0); opacity: 1; }
+
+  /* HTML banner iframe */
+  .banner-embed {
+    width: 100%;
+    border: none;
+    background: var(--warm-gray);
+    display: block;
+  }
+
+  /* ── CONTACT ── */
+  #kontakt {
+    background: var(--warm-gray);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-intro {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: var(--black);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  .contact-intro em { font-style: italic; color: var(--accent); }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link-icon {
+    width: 40px; height: 40px;
+    border: 1px solid var(--mid-gray);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  .contact-link:hover .contact-link-icon {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* contact form */
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+  }
+  .form-group input,
+  .form-group textarea {
+    background: var(--off-white);
+    border: 1px solid var(--warm-gray);
+    border-bottom: 1px solid var(--mid-gray);
+    padding: 0.85rem 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus { border-bottom-color: var(--accent); }
+
+  .form-submit {
+    align-self: flex-start;
+    padding: 1rem 2.5rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .form-submit:hover { background: #a83e1c; transform: translateY(-2px); }
+
+  .form-success {
+    display: none;
+    padding: 1rem 1.5rem;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 0.85rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: var(--mid-gray);
+    padding: 2.5rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+  footer .logo { font-size: 1.2rem; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13,13,13,0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 6rem 2rem 3rem; }
+    .hero-right { min-height: 50vw; }
+    section { padding: 5rem 2rem; }
+    #om, #kontakt { grid-template-columns: 1fr; gap: 3rem; }
+    .about-img-wrap { max-height: 350px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 1rem; padding: 2rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">kjersma<span>.</span>no</a>
+  <ul class="nav-links">
+    <li><a href="#om">Om meg</a></li>
+    <li><a href="#portefolje">Portefølje</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hjem">
+  <div class="hero-left">
+    <p class="hero-tag">Grafisk designer &amp; Adops</p>
+    <h1 class="hero-name">Kjersti<br><em>Magnussen</em></h1>
+    <p class="hero-desc">Over 10 års erfaring med produksjon av bannere, somateriell og infografikk. Jobber primært i Adobe-programmene og leverer design som kommuniserer.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">10+</div>
+        <div class="hero-meta-label">År erfaring</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">4</div>
+        <div class="hero-meta-label">Fagområder</div>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#portefolje" class="btn-primary">Se arbeid</a>
+      <a href="#kontakt" class="btn-ghost">Ta kontakt</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img"><img src="imgs/Fullskjerm_22.jpg" alt="Konsept – brAIn"></div>
+    <div class="hero-img"><img src="imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg" alt="Infografikk"></div>
+    <div class="hero-img"><img src="imgs/1000x300_BW2_TU.jpg" alt="Banner"></div>
+  </div>
+</section>
+
+<!-- OM MEG -->
+<section id="om">
+  <div>
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Om meg</h2>
+    </div>
+    <div class="about-text reveal">
+      <p>Hei! Her har jeg lagt ut et knippe av det jeg har jobbet med de siste årene.</p>
+      <p>Jeg jobber i dag som grafisk designer og Adops og har over 10 års erfaring. Jobber mest i Adobe-programmene med produksjon av bannere, somateriell og infografikk.</p>
+    </div>
+    <div class="about-tags reveal">
+      <span class="tag">Adobe Creative Suite</span>
+      <span class="tag">Bannerproduksjon</span>
+      <span class="tag">Infografikk</span>
+      <span class="tag">Adops</span>
+      <span class="tag">Somateriell</span>
+      <span class="tag">Konseptutvikling</span>
+    </div>
+  </div>
+  <div class="about-right reveal">
+    <div class="about-img-wrap">
+      <img src="imgs/Signatur_2020_NY.jpg" alt="Kjersti Magnussen">
+    </div>
+    <div class="about-img-deco"></div>
+  </div>
+</section>
+
+<!-- PORTEFØLJE -->
+<section id="portefolje">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Portefølje</h2>
+  </div>
+
+  <div class="tabs reveal">
+    <button class="tab-btn active" data-tab="bannere">Bannere</button>
+    <button class="tab-btn" data-tab="infografikk">Infografikk</button>
+    <button class="tab-btn" data-tab="konsepter">Konsepter</button>
+    <button class="tab-btn" data-tab="diverse">Diverse</button>
+  </div>
+
+  <!-- BANNERE -->
+  <div class="tab-panel active" id="tab-bannere">
+    <div class="gallery-grid">
+      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300_BW2_TU.jpg')">
+        <img src="imgs/1000x300_BW2_TU.jpg" alt="TU + Digi banner">
+        <div class="overlay"><span class="overlay-text">TU + Digi – 1000×300</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/300x600_gdpr.jpg')">
+        <img src="imgs/300x600_gdpr.jpg" alt="GDPR-dagen">
+        <div class="overlay"><span class="overlay-text">GDPR-dagen – 300×600</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300_2025.jpg')">
+        <img src="imgs/1000x300_2025.jpg" alt="Banner 2025">
+        <div class="overlay"><span class="overlay-text">Banner 2025 – 1000×300</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/300x600_Konferansierer.jpg')">
+        <img src="imgs/300x600_Konferansierer.jpg" alt="Gulltasten">
+        <div class="overlay"><span class="overlay-text">Gulltasten – 300×600</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300_20204.jpg')">
+        <img src="imgs/1000x300_20204.jpg" alt="Software 2020">
+        <div class="overlay"><span class="overlay-text">Software 2020 – 1000×300</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/320x250_VA_aug25_3.jpg')">
+        <img src="imgs/320x250_VA_aug25_3.jpg" alt="Oslo VA">
+        <div class="overlay"><span class="overlay-text">Oslo VA – 320×250</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/580x400-ører.jpg')">
+        <img src="imgs/580x400-ører.jpg" alt="Påskekampanje">
+        <div class="overlay"><span class="overlay-text">Påskekampanje – 580×400</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/600x300_jul.jpg')">
+        <img src="imgs/600x300_jul.jpg" alt="Tekjobb jul">
+        <div class="overlay"><span class="overlay-text">Tekjobb jul – 600×300</span></div>
+      </div>
+    </div>
+    <!-- HTML-banner -->
+    <div style="margin-top:3px;">
+      <iframe src="imgs/tekjobb_banner/index.html" class="banner-embed" height="300" title="Tekjobb animert banner 1000×300" scrolling="no"></iframe>
+    </div>
+  </div>
+
+  <!-- INFOGRAFIKK -->
+  <div class="tab-panel" id="tab-infografikk">
+    <div class="gallery-grid">
+      <div class="gallery-item wide" onclick="openLightbox('imgs/aktiv-marathonlise_km210116-011.jpg')">
+        <img src="imgs/aktiv-marathonlise_km210116-011.jpg" alt="Marathon-kart">
+        <div class="overlay"><span class="overlay-text">Aktiv – Maratonkart</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg')">
+        <img src="imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg" alt="Offshore vindturbiner">
+        <div class="overlay"><span class="overlay-text">Offshore vindturbiner</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg')">
+        <img src="imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg" alt="Vindkraft kostnader">
+        <div class="overlay"><span class="overlay-text">Vindkraft – kostnadssammenligning</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/Solcelleprod_Tron_30112020-01.jpg')">
+        <img src="imgs/Solcelleprod_Tron_30112020-01.jpg" alt="Solstrømproduksjon Norge">
+        <div class="overlay"><span class="overlay-text">Solstrømproduksjon i Norge</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/North_Sea_Link_-_Oppdatert-01.png')">
+        <img src="imgs/North_Sea_Link_-_Oppdatert-01.png" alt="North Sea Link">
+        <div class="overlay"><span class="overlay-text">North Sea Link / NordLink</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg')">
+        <img src="imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg" alt="Ukraina kjernekraft">
+        <div class="overlay"><span class="overlay-text">Ukraina – kjernekraft</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/krigen-i-syria_km011215-011.jpg')">
+        <img src="imgs/krigen-i-syria_km011215-011.jpg" alt="Brennpunkt Syria">
+        <div class="overlay"><span class="overlay-text">Brennpunkt Syria – energiallianser</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/krigen-i-syria_km091215-011.jpg')">
+        <img src="imgs/krigen-i-syria_km091215-011.jpg" alt="Syria koalisjon">
+        <div class="overlay"><span class="overlay-text">Syria – internasjonal koalisjon</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/midtosten-terror_km251115-011.jpg')">
+        <img src="imgs/midtosten-terror_km251115-011.jpg" alt="Terroraksjonen">
+        <div class="overlay"><span class="overlay-text">Terroraksjonen Europa</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/terror-kart_km191115-011.jpg')">
+        <img src="imgs/terror-kart_km191115-011.jpg" alt="Terror-kart Syria">
+        <div class="overlay"><span class="overlay-text">Syria – terrorkart</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/kino-2014_km241115-011.jpg')">
+        <img src="imgs/kino-2014_km241115-011.jpg" alt="Kinoåret 2014">
+        <div class="overlay"><span class="overlay-text">Kinoåret 2014</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/juleshopping_km081215-011.jpg')">
+        <img src="imgs/juleshopping_km081215-011.jpg" alt="DNs miniguide London">
+        <div class="overlay"><span class="overlay-text">DN miniguide – London</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/Sokkelkart_Ina_251125-ny2.jpg')">
+        <img src="imgs/Sokkelkart_Ina_251125-ny2.jpg" alt="Sokkelkart">
+        <div class="overlay"><span class="overlay-text">Sokkelkart</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KONSEPTER -->
+  <div class="tab-panel" id="tab-konsepter">
+    <div class="gallery-grid">
+      <div class="gallery-item wide" onclick="openLightbox('imgs/Fullskjerm_22.jpg')">
+        <img src="imgs/Fullskjerm_22.jpg" alt="brAIn konferanse">
+        <div class="overlay"><span class="overlay-text">brAIn – fullskjerm</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/16-9_video_utenknapp.jpg')">
+        <img src="imgs/16-9_video_utenknapp.jpg" alt="Ekofisk 50 år">
+        <div class="overlay"><span class="overlay-text">Ekofisk 50 år – 16:9</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/300x600.jpg')">
+        <img src="imgs/300x600.jpg" alt="Inside Telecom">
+        <div class="overlay"><span class="overlay-text">Inside Telecom – 300×600</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300.jpg')">
+        <img src="imgs/1000x300.jpg" alt="TU Electrified">
+        <div class="overlay"><span class="overlay-text">TU Electrified – 1000×300</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/1000x300_mars_2.jpg')">
+        <img src="imgs/1000x300_mars_2.jpg" alt="Attack 2026">
+        <div class="overlay"><span class="overlay-text">Attack 2026 – 1000×300</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/toppbanner_event_teknisk_frokost-01.jpg')">
+        <img src="imgs/toppbanner_event_teknisk_frokost-01.jpg" alt="Teknisk frokost">
+        <div class="overlay"><span class="overlay-text">Teknisk frokost</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/1000x300-findig.jpg')">
+        <img src="imgs/1000x300-findig.jpg" alt="Finansnæringens konferanse">
+        <div class="overlay"><span class="overlay-text">Finansnæringens konferanse</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/600x300_nye.jpg')">
+        <img src="imgs/600x300_nye.jpg" alt="Tek.Rekruttering">
+        <div class="overlay"><span class="overlay-text">Tek.Rekruttering – 600×300</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/skjermer-kandidatpresentasjon.jpg')">
+        <img src="imgs/skjermer-kandidatpresentasjon.jpg" alt="Kandidatpresentasjon skjermer">
+        <div class="overlay"><span class="overlay-text">Kandidatpresentasjon – skjermvisning</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVERSE -->
+  <div class="tab-panel" id="tab-diverse">
+    <div class="gallery-grid">
+      <div class="gallery-item wide" onclick="openLightbox('imgs/forsidebanner_face_1206171.jpg')">
+        <img src="imgs/forsidebanner_face_1206171.jpg" alt="Vinjerock forsidebanner">
+        <div class="overlay"><span class="overlay-text">Vinjerock – forsidebanner</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/scene.jpg')">
+        <img src="imgs/scene.jpg" alt="Vinjerock scene">
+        <div class="overlay"><span class="overlay-text">Vinjerock – scene</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/T-skjorte-frivillig-blaa.jpg')">
+        <img src="imgs/T-skjorte-frivillig-blaa.jpg" alt="Vinjerock t-skjorte">
+        <div class="overlay"><span class="overlay-text">Vinjerock – frivillig t-skjorte</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/adgangsbånd.png')">
+        <img src="imgs/adgangsbånd.png" alt="Vinjerock adgangsbånd">
+        <div class="overlay"><span class="overlay-text">Vinjerock – adgangsbånd</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/Eksempel.jpg')">
+        <img src="imgs/Eksempel.jpg" alt="Vinjerock program">
+        <div class="overlay"><span class="overlay-text">Vinjerock – programdesign</span></div>
+      </div>
+      <div class="gallery-item wide" onclick="openLightbox('imgs/14tu19_store_reportasje_3087-start.jpg')">
+        <img src="imgs/14tu19_store_reportasje_3087-start.jpg" alt="TU reportasje">
+        <div class="overlay"><span class="overlay-text">Teknisk Ukeblad – reportasje</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/1.jpg')">
+        <img src="imgs/1.jpg" alt="Norseman oppslag">
+        <div class="overlay"><span class="overlay-text">Norseman – magasinoppslag</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('imgs/ungfoten-3-2012_page_01.jpg')">
+        <img src="imgs/ungfoten-3-2012_page_01.jpg" alt="Ungfoten magasin">
+        <div class="overlay"><span class="overlay-text">Ungfoten – magasinforside</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div>
+    <h2 class="contact-intro reveal">La oss lage noe <em>bra</em> sammen.</h2>
+    <p class="reveal" style="color:#5a554e; font-size:0.95rem; line-height:1.8; max-width:380px;">Har du et prosjekt du ønsker hjelp med? Ta gjerne kontakt – jeg svarer raskt.</p>
+
+    <a href="https://www.linkedin.com/in/kjersma/" target="_blank" class="contact-link reveal">
+      <span class="contact-link-icon">in</span>
+      <span>LinkedIn – kjersma</span>
+    </a>
+    <a href="mailto:kmagnussen.design@gmail.com" class="contact-link reveal">
+      <span class="contact-link-icon">@</span>
+      <span>kmagnussen.design@gmail.com</span>
+    </a>
+  </div>
+
+  <div>
+    <form class="contact-form reveal" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">Navn</label>
+          <input type="text" id="fname" name="name" placeholder="Ditt navn" required>
+        </div>
+        <div class="form-group">
+          <label for="femail">E-post</label>
+          <input type="email" id="femail" name="email" placeholder="din@epost.no" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fsubject">Emne</label>
+        <input type="text" id="fsubject" name="subject" placeholder="Hva gjelder det?">
+      </div>
+      <div class="form-group">
+        <label for="fmsg">Melding</label>
+        <textarea id="fmsg" name="message" rows="5" placeholder="Fortell litt om prosjektet ditt..." required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send melding →</button>
+      <div class="form-success" id="formSuccess">Takk! Meldingen er sendt. Jeg tar kontakt snart.</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo" style="color:#fff;">kjersma<span>.</span>no</a>
+  <span>© 2025 Kjersti Magnussen – Grafisk designer</span>
+  <a href="https://www.linkedin.com/in/kjersma/" target="_blank" style="color:var(--mid-gray); text-decoration:none;">LinkedIn</a>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // Contact form → mailto
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = this.name.value;
+    const email = this.email.value;
+    const subject = encodeURIComponent(this.subject.value || 'Henvendelse fra kjersma.no');
+    const body = encodeURIComponent(`Hei Kjersti,\n\n${this.message.value}\n\nMed vennlig hilsen,\n${name}\n${email}`);
+    window.location.href = `mailto:kmagnussen.design@gmail.com?subject=${subject}&body=${body}`;
+    document.getElementById('formSuccess').style.display = 'block';
+    this.reset();
+  });
+</script>
+</body>
+</html>
