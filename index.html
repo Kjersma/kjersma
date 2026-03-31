@@ -10,99 +10,125 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   :root {
-    --black: #0d0d0d;
-    --off-white: #f5f2ed;
-    --warm-gray: #e8e4de;
-    --mid-gray: #b0a99e;
-    --accent: #c8522a;
-    --text: #1a1814;
+    --black: #0a0a0a;
+    --bg: #0f0f0f;
+    --surface: #181818;
+    --border: #2a2a2a;
+    --cyan: #0bd2d3;
+    --pink: #f990e8;
+    --text: #e8e8e8;
+    --muted: #888;
     --max: 1600px;
     --pad: 4rem;
   }
-  body { background: var(--off-white); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--off-white); border-bottom: 1px solid var(--warm-gray); }
-  .nav-inner { max-width: var(--max); margin: 0 auto; padding: 1.4rem var(--pad); display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--black); text-decoration: none; }
-  .logo span { color: var(--accent); }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: var(--max); margin: 0 auto; padding: 1.2rem var(--pad); display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--cyan); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-size: 0.78rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); text-decoration: none; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--accent); }
-  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; max-width: var(--max); margin: 0 auto; }
+  .nav-links a { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 68px; max-width: var(--max); margin: 0 auto; }
   .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem var(--pad); }
-  .hero-tag { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
-  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(3.5rem, 5vw, 5.5rem); line-height: 1.0; letter-spacing: -0.02em; color: var(--black); }
-  .hero-name em { font-style: italic; color: var(--accent); }
-  .hero-desc { margin-top: 2rem; font-size: 1rem; line-height: 1.8; color: #5a554e; max-width: 400px; }
-  .hero-meta { margin-top: 2rem; display: flex; gap: 2rem; }
-  .hero-meta-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--black); }
-  .hero-meta-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid-gray); }
+  .hero-tag { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1.5rem; }
+  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(3.5rem, 5vw, 5.5rem); line-height: 1.0; letter-spacing: -0.02em; color: #fff; }
+  .hero-name em { font-style: italic; color: var(--pink); }
+  .hero-desc { margin-top: 2rem; font-size: 0.95rem; line-height: 1.85; color: var(--muted); max-width: 400px; }
+  .hero-meta { margin-top: 2rem; }
+  .hero-meta-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: #fff; }
+  .hero-meta-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; }
-  .btn-primary { display: inline-block; padding: 0.9rem 2rem; background: var(--accent); color: #fff; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
-  .btn-primary:hover { background: #a83e1c; }
-  .btn-ghost { display: inline-block; padding: 0.9rem 2rem; border: 1px solid var(--text); color: var(--text); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
-  .btn-ghost:hover { background: var(--black); color: #fff; }
-  .hero-right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 3px; background: var(--warm-gray); }
-  .hero-img { overflow: hidden; }
+  .btn-primary { display: inline-block; padding: 0.85rem 2rem; background: var(--cyan); color: #000; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
+  .btn-primary:hover { background: #09b8b9; }
+  .btn-ghost { display: inline-block; padding: 0.85rem 2rem; border: 1px solid var(--border); color: var(--text); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+  .btn-ghost:hover { border-color: var(--pink); color: var(--pink); }
+  .hero-right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; background: var(--border); }
+  .hero-img { overflow: hidden; background: var(--surface); }
   .hero-img:first-child { grid-row: span 2; }
-  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s; }
-  .hero-img:hover img { transform: scale(1.04); }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s; filter: brightness(0.85); }
+  .hero-img:hover img { transform: scale(1.04); filter: brightness(1); }
+
+  /* SECTIONS */
   .section-wrap { max-width: var(--max); margin: 0 auto; padding: 6rem var(--pad); }
   .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3rem; }
-  .section-num { font-family: 'DM Serif Display', serif; font-size: 3.5rem; color: #e8d5cc; line-height: 1; font-style: italic; }
-  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3vw, 2.6rem); color: var(--black); letter-spacing: -0.02em; }
-  #om { background: var(--black); }
-  #om .section-num { color: #2a2520; }
-  #om .section-title { color: var(--off-white); }
-  .about-grid { display: block; max-width: 600px; }
-  .about-text { font-size: 1rem; line-height: 1.9; color: #b5b0aa; }
+  .section-num { font-family: 'DM Serif Display', serif; font-size: 3.5rem; color: #222; line-height: 1; font-style: italic; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3vw, 2.6rem); color: #fff; letter-spacing: -0.02em; }
+
+  /* OM MEG */
+  #om { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-text { font-size: 0.95rem; line-height: 1.9; color: var(--muted); max-width: 600px; }
   .about-text p + p { margin-top: 1rem; }
   .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
-  .tag { padding: 0.35rem 0.9rem; border: 1px solid #3a3530; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid-gray); }
-  .about-img-wrap { aspect-ratio: 3/4; max-height: 480px; overflow: hidden; }
-  .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-  #portefolje { background: var(--off-white); }
-  .tabs { display: flex; margin-bottom: 2rem; border-bottom: 1px solid var(--warm-gray); }
-  .tab-btn { padding: 0.9rem 1.8rem; background: none; border: none; border-bottom: 2px solid transparent; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid-gray); cursor: pointer; margin-bottom: -1px; transition: color 0.2s, border-color 0.2s; }
+  .tag { padding: 0.35rem 0.9rem; border: 1px solid var(--border); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); transition: all 0.2s; }
+  .tag:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* TABS */
+  #portefolje { background: var(--bg); }
+  .tabs { display: flex; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+  .tab-btn { padding: 0.9rem 1.8rem; background: none; border: none; border-bottom: 2px solid transparent; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); cursor: pointer; margin-bottom: -1px; transition: color 0.2s, border-color 0.2s; }
   .tab-btn:hover { color: var(--text); }
-  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
-  .gallery { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-  .gitem { cursor: pointer; overflow: hidden; }
-  .gitem img { width: 100%; height: 200px; object-fit: contain; object-position: left center; display: block; transition: transform 0.3s; }
-  .gitem:hover img { transform: scale(1.04); }
-  #kontakt { background: var(--warm-gray); }
+
+  /* GALLERY */
+  .gallery { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .gitem { cursor: pointer; overflow: hidden; background: var(--surface); position: relative; }
+  .gitem img { width: 100%; height: 200px; object-fit: contain; object-position: left center; display: block; transition: transform 0.3s, filter 0.3s; filter: brightness(0.9); }
+  .gitem:hover img { transform: scale(1.04); filter: brightness(1.05); }
+  .gitem-play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: rgba(0,0,0,0.55); }
+  .gitem-play svg { width: 36px; height: 36px; }
+  .gitem-play span { color: var(--cyan); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* CONTACT */
+  #kontakt { background: var(--surface); border-top: 1px solid var(--border); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .contact-intro { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 2.5vw, 2.4rem); color: var(--black); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 2rem; }
-  .contact-intro em { font-style: italic; color: var(--accent); }
-  .contact-link { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; text-decoration: none; color: var(--text); font-size: 0.9rem; transition: color 0.2s; }
-  .contact-link:hover { color: var(--accent); }
-  .contact-icon { width: 38px; height: 38px; border: 1px solid var(--mid-gray); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: all 0.2s; }
-  .contact-link:hover .contact-icon { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .contact-intro { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 2.5vw, 2.4rem); color: #fff; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 2rem; }
+  .contact-intro em { font-style: italic; color: var(--pink); }
+  .contact-link { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; text-decoration: none; color: var(--muted); font-size: 0.9rem; transition: color 0.2s; }
+  .contact-link:hover { color: var(--cyan); }
+  .contact-icon { width: 36px; height: 36px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: all 0.2s; }
+  .contact-link:hover .contact-icon { background: var(--cyan); border-color: var(--cyan); color: #000; }
   .contact-form { display: flex; flex-direction: column; gap: 1rem; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-  .form-group label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid-gray); }
-  .form-group input, .form-group textarea { background: var(--off-white); border: none; border-bottom: 1px solid var(--mid-gray); padding: 0.8rem 0.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); outline: none; resize: none; transition: border-color 0.2s; }
-  .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--accent); }
-  .form-submit { align-self: flex-start; padding: 0.9rem 2.2rem; background: var(--accent); color: #fff; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
-  .form-submit:hover { background: #a83e1c; }
-  footer { background: var(--black); }
-  .footer-inner { max-width: var(--max); margin: 0 auto; padding: 2rem var(--pad); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--mid-gray); }
-  .lightbox { display: none; position: fixed; inset: 0; background: rgba(13,13,13,0.95); z-index: 1000; align-items: center; justify-content: center; padding: 2rem; }
+  .form-group label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .form-group input, .form-group textarea { background: var(--bg); border: none; border-bottom: 1px solid var(--border); padding: 0.8rem 0.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); outline: none; resize: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--cyan); }
+  .form-submit { align-self: flex-start; padding: 0.9rem 2.2rem; background: var(--cyan); color: #000; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .form-submit:hover { background: #09b8b9; }
+
+  /* FOOTER */
+  footer { background: var(--black); border-top: 1px solid var(--border); }
+  .footer-inner { max-width: var(--max); margin: 0 auto; padding: 2rem var(--pad); display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+  .footer-inner a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-inner a:hover { color: var(--cyan); }
+
+  /* LIGHTBOX */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 1000; align-items: center; justify-content: center; padding: 2rem; }
   .lightbox.open { display: flex; }
   .lightbox img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
-  .lb-close { position: absolute; top: 1.5rem; right: 2rem; color: #fff; font-size: 2.5rem; cursor: pointer; background: none; border: none; line-height: 1; opacity: 0.7; }
-  .lb-close:hover { opacity: 1; }
+  .lb-close { position: absolute; top: 1.5rem; right: 2rem; color: var(--muted); font-size: 2.5rem; cursor: pointer; background: none; border: none; line-height: 1; transition: color 0.2s; }
+  .lb-close:hover { color: var(--cyan); }
+
+  /* ACCENT LINE */
+  .accent-line { width: 40px; height: 2px; background: var(--cyan); margin-bottom: 2rem; }
+
   @media (max-width: 1000px) {
     :root { --pad: 2rem; }
-    .hero, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero, .contact-grid { grid-template-columns: 1fr; }
     .hero { min-height: auto; }
     .hero-right { min-height: 60vw; }
     .gallery { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 600px) {
     .gallery { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { gap: 1.2rem; }
   }
 </style>
 </head>
@@ -125,10 +151,8 @@
     <h1 class="hero-name">Kjersti<br><em>Magnussen</em></h1>
     <p class="hero-desc">Over 10 ars erfaring med produksjon av bannere, somateriell og infografikk. Jobber primaert i Adobe-programmene og leverer design som kommuniserer.</p>
     <div class="hero-meta">
-      <div>
-        <div class="hero-meta-num">10+</div>
-        <div class="hero-meta-label">Ar erfaring</div>
-      </div>
+      <div class="hero-meta-num">10+</div>
+      <div class="hero-meta-label">Ar erfaring</div>
     </div>
     <div class="hero-cta">
       <a href="#portefolje" class="btn-primary">Se arbeid</a>
@@ -144,32 +168,29 @@
 
 <section id="om">
   <div class="section-wrap">
-    <div class="about-grid">
-      <div>
-        <div class="section-header">
-          <span class="section-num">01</span>
-          <h2 class="section-title">Om meg</h2>
-        </div>
-        <div class="about-text">
-          <p>Hei! Her har jeg lagt ut et knippe av det jeg har jobbet med de siste arene.</p>
-          <p>Jeg jobber i dag som grafisk designer og Adops og har over 10 ars erfaring. Jobber mest i Adobe-programmene med produksjon av bannere, somateriell og infografikk.</p>
-        </div>
-        <div class="about-tags">
-          <span class="tag">Adobe Creative Suite</span>
-          <span class="tag">Bannerproduksjon</span>
-          <span class="tag">Infografikk</span>
-          <span class="tag">Adops</span>
-          <span class="tag">Somateriell</span>
-          <span class="tag">Konseptutvikling</span>
-        </div>
-      </div>
-
+    <div class="accent-line"></div>
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Om meg</h2>
+    </div>
+    <div class="about-text">
+      <p>Hei! Her har jeg lagt ut et knippe av det jeg har jobbet med de siste arene.</p>
+      <p>Jeg jobber i dag som grafisk designer og Adops og har over 10 ars erfaring. Jobber mest i Adobe-programmene med produksjon av bannere, somateriell og infografikk.</p>
+    </div>
+    <div class="about-tags">
+      <span class="tag">Adobe Creative Suite</span>
+      <span class="tag">Bannerproduksjon</span>
+      <span class="tag">Infografikk</span>
+      <span class="tag">Adops</span>
+      <span class="tag">Somateriell</span>
+      <span class="tag">Konseptutvikling</span>
     </div>
   </div>
 </section>
 
 <section id="portefolje">
   <div class="section-wrap">
+    <div class="accent-line"></div>
     <div class="section-header">
       <span class="section-num">02</span>
       <h2 class="section-title">Portefolje</h2>
@@ -191,12 +212,11 @@
         <div class="gitem" onclick="lb('imgs/320x250_VA_aug25_3.jpg')"><img src="imgs/320x250_VA_aug25_3.jpg" alt="Oslo VA"></div>
         <div class="gitem" onclick="lb('imgs/600x300_jul.jpg')"><img src="imgs/600x300_jul.jpg" alt="Tekjobb jul"></div>
         <div class="gitem" onclick="lb('imgs/580x400-ører.jpg')"><img src="imgs/580x400-ører.jpg" alt="Paskekampanje"></div>
-        <div class="gitem" onclick="lb('imgs/Signatur_2020_NY.jpg')"><img src="imgs/Signatur_2020_NY.jpg" alt="Signatur"></div>
-        <div class="gitem" onclick="window.open('imgs/tekjobb_banner/index.html','_blank')" style="position:relative;">
-          <img src="imgs/600x300_jul.jpg" alt="Tekjobb animert banner" style="filter:brightness(0.35);">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;pointer-events:none;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="#fff" stroke="none"/></svg>
-            <span style="color:#fff;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;">Se animert banner</span>
+        <div class="gitem" style="cursor:pointer;" onclick="window.open('imgs/tekjobb_banner/index.html','_blank')">
+          <img src="imgs/600x300_jul.jpg" alt="Tekjobb animert" style="filter:brightness(0.3)!important;">
+          <div class="gitem-play">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0bd2d3" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="#0bd2d3" stroke="none"/></svg>
+            <span>Animert banner</span>
           </div>
         </div>
       </div>
@@ -239,7 +259,7 @@
         <div class="gitem" onclick="lb('imgs/forsidebanner_face_1206171.jpg')"><img src="imgs/forsidebanner_face_1206171.jpg" alt="Vinjerock banner"></div>
         <div class="gitem" onclick="lb('imgs/scene.jpg')"><img src="imgs/scene.jpg" alt="Vinjerock scene"></div>
         <div class="gitem" onclick="lb('imgs/T-skjorte-frivillig-blaa.jpg')"><img src="imgs/T-skjorte-frivillig-blaa.jpg" alt="Vinjerock t-skjorte"></div>
-        <div class="gitem" onclick="lb('imgs/adgangsbnd.png')"><img src="imgs/adgangsbånd.png" alt="Adgangsband"></div>
+        <div class="gitem" onclick="lb('imgs/adgangsbånd.png')"><img src="imgs/adgangsbånd.png" alt="Adgangsband"></div>
         <div class="gitem" onclick="lb('imgs/Eksempel.jpg')"><img src="imgs/Eksempel.jpg" alt="Vinjerock program"></div>
         <div class="gitem" onclick="lb('imgs/14tu19_store_reportasje_3087-start.jpg')"><img src="imgs/14tu19_store_reportasje_3087-start.jpg" alt="TU reportasje"></div>
         <div class="gitem" onclick="lb('imgs/1.jpg')"><img src="imgs/1.jpg" alt="Norseman"></div>
@@ -251,17 +271,18 @@
 
 <section id="kontakt">
   <div class="section-wrap">
+    <div class="accent-line"></div>
     <div class="contact-grid">
       <div>
         <h2 class="contact-intro">La oss lage noe <em>bra</em> sammen.</h2>
-        <p style="color:#5a554e; font-size:0.95rem; line-height:1.8; max-width:360px;">Har du et prosjekt du onsker hjelp med? Ta gjerne kontakt.</p>
+        <p style="color:var(--muted); font-size:0.9rem; line-height:1.8; max-width:360px;">Har du et prosjekt du onsker hjelp med? Ta gjerne kontakt.</p>
         <a href="https://www.linkedin.com/in/kjersma/" target="_blank" class="contact-link">
           <span class="contact-icon">in</span>
           <span>LinkedIn – kjersma</span>
         </a>
-        <a href="/cdn-cgi/l/email-protection#a2c9cfc3c5ccd7d1d1c7cc8cc6c7d1cbc5cce2c5cfc3cbce8cc1cdcf" class="contact-link">
+        <a href="mailto:kmagnussen.design@gmail.com" class="contact-link">
           <span class="contact-icon">@</span>
-          <span><span class="__cf_email__" data-cfemail="9af1f7fbfdf4efe9e9fff4b4feffe9f3fdf4dafdf7fbf3f6b4f9f5f7">[email&#160;protected]</span></span>
+          <span>kmagnussen.design@gmail.com</span>
         </a>
       </div>
       <form class="contact-form" id="contactForm">
@@ -291,18 +312,18 @@
 
 <footer>
   <div class="footer-inner">
-    <a href="#" class="logo" style="color:#fff; font-size:1.2rem;">kjersma<span>.</span>no</a>
+    <a href="#" class="logo" style="font-size:1.2rem;">kjersma<span style="color:#0bd2d3;">.</span>no</a>
     <span>2025 Kjersti Magnussen</span>
-    <a href="https://www.linkedin.com/in/kjersma/" target="_blank" style="color:#b0a99e; text-decoration:none;">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/kjersma/" target="_blank">LinkedIn</a>
   </div>
 </footer>
 
 <div class="lightbox" id="lightbox" onclick="closeLb()">
-  <button class="lb-close" onclick="closeLb()">x</button>
+  <button class="lb-close" onclick="closeLb()">×</button>
   <img id="lb-img" src="" alt="">
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 function showTab(name) {
   var btns = document.querySelectorAll('.tab-btn');
   var panels = document.querySelectorAll('.tab-content');
@@ -323,4 +344,10 @@ function closeLb() {
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  var subject = encodeURIComponent(this.subject.value || 'Henvendelse fra kjersma.no')
+  var subject = encodeURIComponent(this.subject.value || 'Henvendelse fra kjersma.no');
+  var body = encodeURIComponent('Hei Kjersti,\n\n' + this.message.value + '\n\n' + this.name.value + '\n' + this.email.value);
+  window.location.href = 'mailto:kmagnussen.design@gmail.com?subject=' + subject + '&body=' + body;
+});
+</script>
+</body>
+</html>
