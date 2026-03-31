@@ -7,543 +7,127 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   :root {
     --black: #0d0d0d;
     --off-white: #f5f2ed;
     --warm-gray: #e8e4de;
     --mid-gray: #b0a99e;
     --accent: #c8522a;
-    --accent-light: #e8d5cc;
     --text: #1a1814;
-    --font-serif: 'DM Serif Display', serif;
-    --font-sans: 'DM Sans', sans-serif;
+    --max: 1600px;
+    --pad: 4rem;
   }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--off-white);
-    color: var(--text);
-    font-family: var(--font-sans);
-    font-weight: 300;
-    overflow-x: hidden;
-  }
-
-  .page-wrap {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.4rem 3rem;
-    background: var(--off-white);
-    border-bottom: 1px solid var(--warm-gray);
-    transition: box-shadow 0.3s;
-  }
-  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
-
-  .logo {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
-    color: var(--black);
-    text-decoration: none;
-  }
+  body { background: var(--off-white); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--off-white); border-bottom: 1px solid var(--warm-gray); }
+  .nav-inner { max-width: var(--max); margin: 0 auto; padding: 1.4rem var(--pad); display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--black); text-decoration: none; }
   .logo span { color: var(--accent); }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text);
-    text-decoration: none;
-    position: relative;
-    transition: color 0.2s;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -3px; left: 0;
-    width: 0; height: 1px;
-    background: var(--accent);
-    transition: width 0.3s;
-  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.78rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--accent); }
-  .nav-links a:hover::after { width: 100%; }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 80px;
-  }
-
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6rem 4rem 6rem 5rem;
-  }
-
-  .hero-tag {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-name {
-    font-family: var(--font-serif);
-    font-size: clamp(3.5rem, 6vw, 6rem);
-    line-height: 1.0;
-    letter-spacing: -0.02em;
-    color: var(--black);
-  }
-  .hero-name em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .hero-desc {
-    margin-top: 2rem;
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #5a554e;
-    max-width: 420px;
-  }
-
-  .hero-meta {
-    margin-top: 2.5rem;
-    display: flex;
-    gap: 2rem;
-  }
-  .hero-meta-item { text-align: left; }
-  .hero-meta-num {
-    font-family: var(--font-serif);
-    font-size: 2rem;
-    color: var(--black);
-  }
-  .hero-meta-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--mid-gray);
-  }
-
-  .hero-cta {
-    margin-top: 3rem;
-    display: flex;
-    gap: 1rem;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    padding: 0.9rem 2rem;
-    background: var(--accent);
-    color: #fff;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .btn-primary:hover { background: #a83e1c; transform: translateY(-2px); }
-
-  .btn-ghost {
-    display: inline-block;
-    padding: 0.9rem 2rem;
-    border: 1px solid var(--text);
-    color: var(--text);
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .btn-ghost:hover { background: var(--black); color: #fff; transform: translateY(-2px); }
-
-  .hero-right {
-    background: var(--warm-gray);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 3px;
-  }
-  .hero-img {
-    overflow: hidden;
-    cursor: pointer;
-  }
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; max-width: var(--max); margin: 0 auto; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem var(--pad); }
+  .hero-tag { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(3.5rem, 5vw, 5.5rem); line-height: 1.0; letter-spacing: -0.02em; color: var(--black); }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-desc { margin-top: 2rem; font-size: 1rem; line-height: 1.8; color: #5a554e; max-width: 400px; }
+  .hero-meta { margin-top: 2rem; display: flex; gap: 2rem; }
+  .hero-meta-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--black); }
+  .hero-meta-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid-gray); }
+  .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; }
+  .btn-primary { display: inline-block; padding: 0.9rem 2rem; background: var(--accent); color: #fff; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
+  .btn-primary:hover { background: #a83e1c; }
+  .btn-ghost { display: inline-block; padding: 0.9rem 2rem; border: 1px solid var(--text); color: var(--text); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+  .btn-ghost:hover { background: var(--black); color: #fff; }
+  .hero-right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 3px; background: var(--warm-gray); }
+  .hero-img { overflow: hidden; }
   .hero-img:first-child { grid-row: span 2; }
-  .hero-img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease;
-  }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s; }
   .hero-img:hover img { transform: scale(1.04); }
-
-  /* ── SECTION COMMON ── */
-  section { padding: 7rem 5rem; max-width: 1400px; margin: 0 auto; width: 100%; }
-
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
-  .section-num {
-    font-family: var(--font-serif);
-    font-size: 4rem;
-    color: var(--accent-light);
-    line-height: 1;
-    font-style: italic;
-  }
-  .section-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 3vw, 2.8rem);
-    color: var(--black);
-    letter-spacing: -0.02em;
-  }
-
-  /* ── ABOUT ── */
-  #om {
-    background: var(--black);
-    color: var(--off-white);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-  #om .section-num { color: #3a3530; }
+  .section-wrap { max-width: var(--max); margin: 0 auto; padding: 6rem var(--pad); }
+  .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3rem; }
+  .section-num { font-family: 'DM Serif Display', serif; font-size: 3.5rem; color: #e8d5cc; line-height: 1; font-style: italic; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3vw, 2.6rem); color: var(--black); letter-spacing: -0.02em; }
+  #om { background: var(--black); }
+  #om .section-num { color: #2a2520; }
   #om .section-title { color: var(--off-white); }
-
-  .about-text {
-    font-size: 1.05rem;
-    line-height: 1.9;
-    color: #b5b0aa;
-  }
-  .about-text p + p { margin-top: 1.2rem; }
-
-  .about-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 2rem;
-  }
-  .tag {
-    padding: 0.4rem 1rem;
-    border: 1px solid #3a3530;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--mid-gray);
-  }
-
-  .about-right { position: relative; }
-  .about-img-wrap {
-    position: relative;
-    aspect-ratio: 3/4;
-    max-height: 500px;
-    overflow: hidden;
-  }
-  .about-img-wrap img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-  }
-  .about-img-deco {
-    position: absolute;
-    bottom: -20px; right: -20px;
-    width: 60%;
-    height: 60%;
-    border: 1px solid var(--accent);
-    z-index: -1;
-  }
-
-  /* ── PORTFOLIO TABS ── */
+  .about-grid { display: block; max-width: 600px; }
+  .about-text { font-size: 1rem; line-height: 1.9; color: #b5b0aa; }
+  .about-text p + p { margin-top: 1rem; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+  .tag { padding: 0.35rem 0.9rem; border: 1px solid #3a3530; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid-gray); }
+  .about-img-wrap { aspect-ratio: 3/4; max-height: 480px; overflow: hidden; }
+  .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
   #portefolje { background: var(--off-white); }
-
-  .tabs {
-    display: flex;
-    gap: 0;
-    margin-bottom: 4rem;
-    border-bottom: 1px solid var(--warm-gray);
-  }
-  .tab-btn {
-    padding: 1rem 2rem;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mid-gray);
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: -1px;
-  }
+  .tabs { display: flex; margin-bottom: 2rem; border-bottom: 1px solid var(--warm-gray); }
+  .tab-btn { padding: 0.9rem 1.8rem; background: none; border: none; border-bottom: 2px solid transparent; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid-gray); cursor: pointer; margin-bottom: -1px; transition: color 0.2s, border-color 0.2s; }
   .tab-btn:hover { color: var(--text); }
-  .tab-btn.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  .tab-panel { display: none !important; }
-  .tab-panel.active { display: block !important; }
-
-  /* ── GALLERY GRID ── */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-
-  .gallery-item {
-    position: relative;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .gallery-item img {
-    width: 100%;
-    height: 220px;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-    background: transparent;
-    transition: transform 0.3s ease;
-  }
-  .gallery-item:hover img { transform: scale(1.02); }
-
-  .gallery-item .overlay { display: none; }
-  .overlay-text { display: none; }
-
-  /* HTML banner iframe */
-  .banner-embed {
-    width: 100%;
-    border: none;
-    background: var(--warm-gray);
-    display: block;
-  }
-
-  /* ── CONTACT ── */
-  #kontakt {
-    background: var(--warm-gray);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .contact-intro {
-    font-family: var(--font-serif);
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    color: var(--black);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-  }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .gallery { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .gitem { cursor: pointer; overflow: hidden; }
+  .gitem img { width: 100%; height: 200px; object-fit: contain; object-position: left center; display: block; transition: transform 0.3s; }
+  .gitem:hover img { transform: scale(1.04); }
+  #kontakt { background: var(--warm-gray); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-intro { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 2.5vw, 2.4rem); color: var(--black); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 2rem; }
   .contact-intro em { font-style: italic; color: var(--accent); }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    text-decoration: none;
-    color: var(--text);
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
+  .contact-link { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; text-decoration: none; color: var(--text); font-size: 0.9rem; transition: color 0.2s; }
   .contact-link:hover { color: var(--accent); }
-  .contact-link-icon {
-    width: 40px; height: 40px;
-    border: 1px solid var(--mid-gray);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-    transition: all 0.2s;
-  }
-  .contact-link:hover .contact-link-icon {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-
-  /* contact form */
-  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-
-  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-  .form-group label {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mid-gray);
-  }
-  .form-group input,
-  .form-group textarea {
-    background: var(--off-white);
-    border: 1px solid var(--warm-gray);
-    border-bottom: 1px solid var(--mid-gray);
-    padding: 0.85rem 1rem;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s;
-    resize: none;
-  }
-  .form-group input:focus,
-  .form-group textarea:focus { border-bottom-color: var(--accent); }
-
-  .form-submit {
-    align-self: flex-start;
-    padding: 1rem 2.5rem;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .form-submit:hover { background: #a83e1c; transform: translateY(-2px); }
-
-  .form-success {
-    display: none;
-    padding: 1rem 1.5rem;
-    background: #e8f5e9;
-    color: #2e7d32;
-    font-size: 0.85rem;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--black);
-    color: var(--mid-gray);
-    padding: 2.5rem 5rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.78rem;
-    letter-spacing: 0.05em;
-  }
-  footer .logo { font-size: 1.2rem; }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  .reveal { opacity: 1; transform: none; }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /* ── LIGHTBOX ── */
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(13,13,13,0.95);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
+  .contact-icon { width: 38px; height: 38px; border: 1px solid var(--mid-gray); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: all 0.2s; }
+  .contact-link:hover .contact-icon { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid-gray); }
+  .form-group input, .form-group textarea { background: var(--off-white); border: none; border-bottom: 1px solid var(--mid-gray); padding: 0.8rem 0.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); outline: none; resize: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--accent); }
+  .form-submit { align-self: flex-start; padding: 0.9rem 2.2rem; background: var(--accent); color: #fff; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .form-submit:hover { background: #a83e1c; }
+  footer { background: var(--black); }
+  .footer-inner { max-width: var(--max); margin: 0 auto; padding: 2rem var(--pad); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--mid-gray); }
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(13,13,13,0.95); z-index: 1000; align-items: center; justify-content: center; padding: 2rem; }
   .lightbox.open { display: flex; }
-  .lightbox img {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
+  .lightbox img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+  .lb-close { position: absolute; top: 1.5rem; right: 2rem; color: #fff; font-size: 2.5rem; cursor: pointer; background: none; border: none; line-height: 1; opacity: 0.7; }
+  .lb-close:hover { opacity: 1; }
+  @media (max-width: 1000px) {
+    :root { --pad: 2rem; }
+    .hero, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero { min-height: auto; }
+    .hero-right { min-height: 60vw; }
+    .gallery { grid-template-columns: repeat(3, 1fr); }
   }
-  .lightbox-close {
-    position: absolute;
-    top: 2rem; right: 2rem;
-    color: #fff;
-    font-size: 2rem;
-    cursor: pointer;
-    background: none;
-    border: none;
-    line-height: 1;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-  }
-  .lightbox-close:hover { opacity: 1; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 1.2rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-left { padding: 6rem 2rem 3rem; }
-    .hero-right { min-height: 50vw; }
-    section { padding: 5rem 2rem; }
-    #om, #kontakt { grid-template-columns: 1fr; gap: 3rem; }
-    .about-img-wrap { max-height: 350px; }
-    .gallery-grid { grid-template-columns: 1fr 1fr 1fr; }
-    footer { flex-direction: column; gap: 1rem; padding: 2rem; text-align: center; }
+  @media (max-width: 600px) {
+    .gallery { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#" class="logo">kjersma<span>.</span>no</a>
-  <ul class="nav-links">
-    <li><a href="#om">Om meg</a></li>
-    <li><a href="#portefolje">Portefølje</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul>
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">kjersma<span>.</span>no</a>
+    <ul class="nav-links">
+      <li><a href="#om">Om meg</a></li>
+      <li><a href="#portefolje">Portefolje</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="hjem">
   <div class="hero-left">
     <p class="hero-tag">Grafisk designer &amp; Adops</p>
     <h1 class="hero-name">Kjersti<br><em>Magnussen</em></h1>
-    <p class="hero-desc">Over 10 års erfaring med produksjon av bannere, somateriell og infografikk. Jobber primært i Adobe-programmene og leverer design som kommuniserer.</p>
+    <p class="hero-desc">Over 10 ars erfaring med produksjon av bannere, somateriell og infografikk. Jobber primaert i Adobe-programmene og leverer design som kommuniserer.</p>
     <div class="hero-meta">
-      <div class="hero-meta-item">
+      <div>
         <div class="hero-meta-num">10+</div>
-        <div class="hero-meta-label">År erfaring</div>
+        <div class="hero-meta-label">Ar erfaring</div>
       </div>
     </div>
     <div class="hero-cta">
@@ -552,337 +136,190 @@
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-img"><img src="imgs/Fullskjerm_22.jpg" alt="Konsept – brAIn"></div>
-    <div class="hero-img"><img src="imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg" alt="Infografikk"></div>
-    <div class="hero-img"><img src="imgs/1000x300_BW2_TU.jpg" alt="Banner"></div>
+    <div class="hero-img"><img src="imgs/Fullskjerm_22.jpg" alt=""></div>
+    <div class="hero-img"><img src="imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg" alt=""></div>
+    <div class="hero-img"><img src="imgs/1000x300_BW2_TU.jpg" alt=""></div>
   </div>
 </section>
 
-<!-- OM MEG -->
 <section id="om">
-  <div>
-    <div class="section-header reveal">
-      <span class="section-num">01</span>
-      <h2 class="section-title">Om meg</h2>
+  <div class="section-wrap">
+    <div class="about-grid">
+      <div>
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <h2 class="section-title">Om meg</h2>
+        </div>
+        <div class="about-text">
+          <p>Hei! Her har jeg lagt ut et knippe av det jeg har jobbet med de siste arene.</p>
+          <p>Jeg jobber i dag som grafisk designer og Adops og har over 10 ars erfaring. Jobber mest i Adobe-programmene med produksjon av bannere, somateriell og infografikk.</p>
+        </div>
+        <div class="about-tags">
+          <span class="tag">Adobe Creative Suite</span>
+          <span class="tag">Bannerproduksjon</span>
+          <span class="tag">Infografikk</span>
+          <span class="tag">Adops</span>
+          <span class="tag">Somateriell</span>
+          <span class="tag">Konseptutvikling</span>
+        </div>
+      </div>
+
     </div>
-    <div class="about-text reveal">
-      <p>Hei! Her har jeg lagt ut et knippe av det jeg har jobbet med de siste årene.</p>
-      <p>Jeg jobber i dag som grafisk designer og Adops og har over 10 års erfaring. Jobber mest i Adobe-programmene med produksjon av bannere, somateriell og infografikk.</p>
-    </div>
-    <div class="about-tags reveal">
-      <span class="tag">Adobe Creative Suite</span>
-      <span class="tag">Bannerproduksjon</span>
-      <span class="tag">Infografikk</span>
-      <span class="tag">Adops</span>
-      <span class="tag">Somateriell</span>
-      <span class="tag">Konseptutvikling</span>
-    </div>
-  </div>
-  <div class="about-right reveal">
-    <div class="about-img-wrap">
-      <img src="imgs/Signatur_2020_NY.jpg" alt="Kjersti Magnussen">
-    </div>
-    <div class="about-img-deco"></div>
   </div>
 </section>
 
-<!-- PORTEFØLJE -->
 <section id="portefolje">
-  <div class="section-header reveal">
-    <span class="section-num">02</span>
-    <h2 class="section-title">Portefølje</h2>
-  </div>
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Portefolje</h2>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" id="btn-bannere" onclick="showTab('bannere')">Bannere</button>
+      <button class="tab-btn" id="btn-infografikk" onclick="showTab('infografikk')">Infografikk</button>
+      <button class="tab-btn" id="btn-konsepter" onclick="showTab('konsepter')">Konsepter</button>
+      <button class="tab-btn" id="btn-diverse" onclick="showTab('diverse')">Diverse</button>
+    </div>
 
-  <div class="tabs reveal">
-    <button class="tab-btn active" onclick="switchTab('bannere', this)">Bannere</button>
-    <button class="tab-btn" onclick="switchTab('infografikk', this)">Infografikk</button>
-    <button class="tab-btn" onclick="switchTab('konsepter', this)">Konsepter</button>
-    <button class="tab-btn" onclick="switchTab('diverse', this)">Diverse</button>
-  </div>
-
-  <!-- BANNERE -->
-  <div class="tab-panel active" id="tab-bannere">
-    <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('imgs/1000x300_BW2_TU.jpg')">
-        <img src="imgs/1000x300_BW2_TU.jpg" alt="TU + Digi banner">
-        <div class="overlay"><span class="overlay-text">TU + Digi – 1000×300</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/300x600_gdpr.jpg')">
-        <img src="imgs/300x600_gdpr.jpg" alt="GDPR-dagen">
-        <div class="overlay"><span class="overlay-text">GDPR-dagen – 300×600</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/1000x300_2025.jpg')">
-        <img src="imgs/1000x300_2025.jpg" alt="Banner 2025">
-        <div class="overlay"><span class="overlay-text">Banner 2025 – 1000×300</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/300x600_Konferansierer.jpg')">
-        <img src="imgs/300x600_Konferansierer.jpg" alt="Gulltasten">
-        <div class="overlay"><span class="overlay-text">Gulltasten – 300×600</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/1000x300_20204.jpg')">
-        <img src="imgs/1000x300_20204.jpg" alt="Software 2020">
-        <div class="overlay"><span class="overlay-text">Software 2020 – 1000×300</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/320x250_VA_aug25_3.jpg')">
-        <img src="imgs/320x250_VA_aug25_3.jpg" alt="Oslo VA">
-        <div class="overlay"><span class="overlay-text">Oslo VA – 320×250</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/580x400-ører.jpg')">
-        <img src="imgs/580x400-ører.jpg" alt="Påskekampanje">
-        <div class="overlay"><span class="overlay-text">Påskekampanje – 580×400</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/600x300_jul.jpg')">
-        <img src="imgs/600x300_jul.jpg" alt="Tekjobb jul">
-        <div class="overlay"><span class="overlay-text">Tekjobb jul – 600×300</span></div>
+    <div class="tab-content active" id="tab-bannere">
+      <div class="gallery">
+        <div class="gitem" onclick="lb('imgs/1000x300_BW2_TU.jpg')"><img src="imgs/1000x300_BW2_TU.jpg" alt="TU Digi"></div>
+        <div class="gitem" onclick="lb('imgs/300x600_gdpr.jpg')"><img src="imgs/300x600_gdpr.jpg" alt="GDPR"></div>
+        <div class="gitem" onclick="lb('imgs/1000x300_2025.jpg')"><img src="imgs/1000x300_2025.jpg" alt="Banner 2025"></div>
+        <div class="gitem" onclick="lb('imgs/300x600_Konferansierer.jpg')"><img src="imgs/300x600_Konferansierer.jpg" alt="Gulltasten"></div>
+        <div class="gitem" onclick="lb('imgs/1000x300_20204.jpg')"><img src="imgs/1000x300_20204.jpg" alt="Software 2020"></div>
+        <div class="gitem" onclick="lb('imgs/320x250_VA_aug25_3.jpg')"><img src="imgs/320x250_VA_aug25_3.jpg" alt="Oslo VA"></div>
+        <div class="gitem" onclick="lb('imgs/580x400-orer.jpg')"><img src="imgs/580x400-ører.jpg" alt="Paskekampanje"></div>
+        <div class="gitem" onclick="lb('imgs/600x300_jul.jpg')"><img src="imgs/600x300_jul.jpg" alt="Tekjobb jul"></div>
+        <div class="gitem" onclick="lb('imgs/Signatur_2020_NY.jpg')"><img src="imgs/Signatur_2020_NY.jpg" alt="Signatur"></div>
       </div>
     </div>
-    <!-- Tekjobb animert banner -->
-    <div class="gallery-item" style="grid-column: span 4; margin-top: 8px;" onclick="openLightbox('imgs/600x300_jul.jpg')">
-      <img src="imgs/600x300_jul.jpg" alt="Tekjobb – animert banner" style="height:160px;">
-      <div class="overlay"><span class="overlay-text">Tekjobb – animert HTML-banner 1000×300</span></div>
-    </div>
-  </div>
 
-  <!-- INFOGRAFIKK -->
-  <div class="tab-panel" id="tab-infografikk">
-    <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('imgs/aktiv-marathonlise_km210116-011.jpg')">
-        <img src="imgs/aktiv-marathonlise_km210116-011.jpg" alt="Marathon-kart">
-        <div class="overlay"><span class="overlay-text">Aktiv – Maratonkart</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg')">
-        <img src="imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg" alt="Offshore vindturbiner">
-        <div class="overlay"><span class="overlay-text">Offshore vindturbiner</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg')">
-        <img src="imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg" alt="Vindkraft kostnader">
-        <div class="overlay"><span class="overlay-text">Vindkraft – kostnadssammenligning</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/Solcelleprod_Tron_30112020-01.jpg')">
-        <img src="imgs/Solcelleprod_Tron_30112020-01.jpg" alt="Solstrømproduksjon Norge">
-        <div class="overlay"><span class="overlay-text">Solstrømproduksjon i Norge</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/North_Sea_Link_-_Oppdatert-01.png')">
-        <img src="imgs/North_Sea_Link_-_Oppdatert-01.png" alt="North Sea Link">
-        <div class="overlay"><span class="overlay-text">North Sea Link / NordLink</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg')">
-        <img src="imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg" alt="Ukraina kjernekraft">
-        <div class="overlay"><span class="overlay-text">Ukraina – kjernekraft</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/krigen-i-syria_km011215-011.jpg')">
-        <img src="imgs/krigen-i-syria_km011215-011.jpg" alt="Brennpunkt Syria">
-        <div class="overlay"><span class="overlay-text">Brennpunkt Syria – energiallianser</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/krigen-i-syria_km091215-011.jpg')">
-        <img src="imgs/krigen-i-syria_km091215-011.jpg" alt="Syria koalisjon">
-        <div class="overlay"><span class="overlay-text">Syria – internasjonal koalisjon</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/midtosten-terror_km251115-011.jpg')">
-        <img src="imgs/midtosten-terror_km251115-011.jpg" alt="Terroraksjonen">
-        <div class="overlay"><span class="overlay-text">Terroraksjonen Europa</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/terror-kart_km191115-011.jpg')">
-        <img src="imgs/terror-kart_km191115-011.jpg" alt="Terror-kart Syria">
-        <div class="overlay"><span class="overlay-text">Syria – terrorkart</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/kino-2014_km241115-011.jpg')">
-        <img src="imgs/kino-2014_km241115-011.jpg" alt="Kinoåret 2014">
-        <div class="overlay"><span class="overlay-text">Kinoåret 2014</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/juleshopping_km081215-011.jpg')">
-        <img src="imgs/juleshopping_km081215-011.jpg" alt="DNs miniguide London">
-        <div class="overlay"><span class="overlay-text">DN miniguide – London</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/Sokkelkart_Ina_251125-ny2.jpg')">
-        <img src="imgs/Sokkelkart_Ina_251125-ny2.jpg" alt="Sokkelkart">
-        <div class="overlay"><span class="overlay-text">Sokkelkart</span></div>
+    <div class="tab-content" id="tab-infografikk">
+      <div class="gallery">
+        <div class="gitem" onclick="lb('imgs/aktiv-marathonlise_km210116-011.jpg')"><img src="imgs/aktiv-marathonlise_km210116-011.jpg" alt="Maratonkart"></div>
+        <div class="gitem" onclick="lb('imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg')"><img src="imgs/Vindturbiner_Offshore_Ellen_231019-01.jpg" alt="Vindturbiner"></div>
+        <div class="gitem" onclick="lb('imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg')"><img src="imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg" alt="Vindkraft"></div>
+        <div class="gitem" onclick="lb('imgs/Solcelleprod_Tron_30112020-01.jpg')"><img src="imgs/Solcelleprod_Tron_30112020-01.jpg" alt="Solstrom"></div>
+        <div class="gitem" onclick="lb('imgs/North_Sea_Link_-_Oppdatert-01.png')"><img src="imgs/North_Sea_Link_-_Oppdatert-01.png" alt="North Sea Link"></div>
+        <div class="gitem" onclick="lb('imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg')"><img src="imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg" alt="Ukraina"></div>
+        <div class="gitem" onclick="lb('imgs/krigen-i-syria_km011215-011.jpg')"><img src="imgs/krigen-i-syria_km011215-011.jpg" alt="Syria 1"></div>
+        <div class="gitem" onclick="lb('imgs/krigen-i-syria_km091215-011.jpg')"><img src="imgs/krigen-i-syria_km091215-011.jpg" alt="Syria 2"></div>
+        <div class="gitem" onclick="lb('imgs/midtosten-terror_km251115-011.jpg')"><img src="imgs/midtosten-terror_km251115-011.jpg" alt="Terror"></div>
+        <div class="gitem" onclick="lb('imgs/terror-kart_km191115-011.jpg')"><img src="imgs/terror-kart_km191115-011.jpg" alt="Terrorkart"></div>
+        <div class="gitem" onclick="lb('imgs/kino-2014_km241115-011.jpg')"><img src="imgs/kino-2014_km241115-011.jpg" alt="Kino 2014"></div>
+        <div class="gitem" onclick="lb('imgs/juleshopping_km081215-011.jpg')"><img src="imgs/juleshopping_km081215-011.jpg" alt="London"></div>
+        <div class="gitem" onclick="lb('imgs/Sokkelkart_Ina_251125-ny2.jpg')"><img src="imgs/Sokkelkart_Ina_251125-ny2.jpg" alt="Sokkelkart"></div>
       </div>
     </div>
-  </div>
 
-  <!-- KONSEPTER -->
-  <div class="tab-panel" id="tab-konsepter">
-    <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('imgs/Fullskjerm_22.jpg')">
-        <img src="imgs/Fullskjerm_22.jpg" alt="brAIn konferanse">
-        <div class="overlay"><span class="overlay-text">brAIn – fullskjerm</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/16-9_video_utenknapp.jpg')">
-        <img src="imgs/16-9_video_utenknapp.jpg" alt="Ekofisk 50 år">
-        <div class="overlay"><span class="overlay-text">Ekofisk 50 år – 16:9</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/300x600.jpg')">
-        <img src="imgs/300x600.jpg" alt="Inside Telecom">
-        <div class="overlay"><span class="overlay-text">Inside Telecom – 300×600</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/1000x300.jpg')">
-        <img src="imgs/1000x300.jpg" alt="TU Electrified">
-        <div class="overlay"><span class="overlay-text">TU Electrified – 1000×300</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/1000x300_mars_2.jpg')">
-        <img src="imgs/1000x300_mars_2.jpg" alt="Attack 2026">
-        <div class="overlay"><span class="overlay-text">Attack 2026 – 1000×300</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/toppbanner_event_teknisk_frokost-01.jpg')">
-        <img src="imgs/toppbanner_event_teknisk_frokost-01.jpg" alt="Teknisk frokost">
-        <div class="overlay"><span class="overlay-text">Teknisk frokost</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/1000x300-findig.jpg')">
-        <img src="imgs/1000x300-findig.jpg" alt="Finansnæringens konferanse">
-        <div class="overlay"><span class="overlay-text">Finansnæringens konferanse</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/600x300_nye.jpg')">
-        <img src="imgs/600x300_nye.jpg" alt="Tek.Rekruttering">
-        <div class="overlay"><span class="overlay-text">Tek.Rekruttering – 600×300</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/skjermer-kandidatpresentasjon.jpg')">
-        <img src="imgs/skjermer-kandidatpresentasjon.jpg" alt="Kandidatpresentasjon skjermer">
-        <div class="overlay"><span class="overlay-text">Kandidatpresentasjon – skjermvisning</span></div>
+    <div class="tab-content" id="tab-konsepter">
+      <div class="gallery">
+        <div class="gitem" onclick="lb('imgs/Fullskjerm_22.jpg')"><img src="imgs/Fullskjerm_22.jpg" alt="brAIn"></div>
+        <div class="gitem" onclick="lb('imgs/16-9_video_utenknapp.jpg')"><img src="imgs/16-9_video_utenknapp.jpg" alt="Ekofisk"></div>
+        <div class="gitem" onclick="lb('imgs/300x600.jpg')"><img src="imgs/300x600.jpg" alt="Inside Telecom"></div>
+        <div class="gitem" onclick="lb('imgs/1000x300.jpg')"><img src="imgs/1000x300.jpg" alt="TU Electrified"></div>
+        <div class="gitem" onclick="lb('imgs/1000x300_mars_2.jpg')"><img src="imgs/1000x300_mars_2.jpg" alt="Attack 2026"></div>
+        <div class="gitem" onclick="lb('imgs/toppbanner_event_teknisk_frokost-01.jpg')"><img src="imgs/toppbanner_event_teknisk_frokost-01.jpg" alt="Teknisk frokost"></div>
+        <div class="gitem" onclick="lb('imgs/1000x300-findig.jpg')"><img src="imgs/1000x300-findig.jpg" alt="Finansnaringen"></div>
+        <div class="gitem" onclick="lb('imgs/600x300_nye.jpg')"><img src="imgs/600x300_nye.jpg" alt="Tek.Rekruttering"></div>
+        <div class="gitem" onclick="lb('imgs/skjermer-kandidatpresentasjon.jpg')"><img src="imgs/skjermer-kandidatpresentasjon.jpg" alt="Kandidatpresentasjon"></div>
       </div>
     </div>
-  </div>
 
-  <!-- DIVERSE -->
-  <div class="tab-panel" id="tab-diverse">
-    <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox('imgs/forsidebanner_face_1206171.jpg')">
-        <img src="imgs/forsidebanner_face_1206171.jpg" alt="Vinjerock forsidebanner">
-        <div class="overlay"><span class="overlay-text">Vinjerock – forsidebanner</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/scene.jpg')">
-        <img src="imgs/scene.jpg" alt="Vinjerock scene">
-        <div class="overlay"><span class="overlay-text">Vinjerock – scene</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/T-skjorte-frivillig-blaa.jpg')">
-        <img src="imgs/T-skjorte-frivillig-blaa.jpg" alt="Vinjerock t-skjorte">
-        <div class="overlay"><span class="overlay-text">Vinjerock – frivillig t-skjorte</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/adgangsbånd.png')">
-        <img src="imgs/adgangsbånd.png" alt="Vinjerock adgangsbånd">
-        <div class="overlay"><span class="overlay-text">Vinjerock – adgangsbånd</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/Eksempel.jpg')">
-        <img src="imgs/Eksempel.jpg" alt="Vinjerock program">
-        <div class="overlay"><span class="overlay-text">Vinjerock – programdesign</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/14tu19_store_reportasje_3087-start.jpg')">
-        <img src="imgs/14tu19_store_reportasje_3087-start.jpg" alt="TU reportasje">
-        <div class="overlay"><span class="overlay-text">Teknisk Ukeblad – reportasje</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/1.jpg')">
-        <img src="imgs/1.jpg" alt="Norseman oppslag">
-        <div class="overlay"><span class="overlay-text">Norseman – magasinoppslag</span></div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('imgs/ungfoten-3-2012_page_01.jpg')">
-        <img src="imgs/ungfoten-3-2012_page_01.jpg" alt="Ungfoten magasin">
-        <div class="overlay"><span class="overlay-text">Ungfoten – magasinforside</span></div>
+    <div class="tab-content" id="tab-diverse">
+      <div class="gallery">
+        <div class="gitem" onclick="lb('imgs/forsidebanner_face_1206171.jpg')"><img src="imgs/forsidebanner_face_1206171.jpg" alt="Vinjerock banner"></div>
+        <div class="gitem" onclick="lb('imgs/scene.jpg')"><img src="imgs/scene.jpg" alt="Vinjerock scene"></div>
+        <div class="gitem" onclick="lb('imgs/T-skjorte-frivillig-blaa.jpg')"><img src="imgs/T-skjorte-frivillig-blaa.jpg" alt="Vinjerock t-skjorte"></div>
+        <div class="gitem" onclick="lb('imgs/adgangsbnd.png')"><img src="imgs/adgangsbånd.png" alt="Adgangsband"></div>
+        <div class="gitem" onclick="lb('imgs/Eksempel.jpg')"><img src="imgs/Eksempel.jpg" alt="Vinjerock program"></div>
+        <div class="gitem" onclick="lb('imgs/14tu19_store_reportasje_3087-start.jpg')"><img src="imgs/14tu19_store_reportasje_3087-start.jpg" alt="TU reportasje"></div>
+        <div class="gitem" onclick="lb('imgs/1.jpg')"><img src="imgs/1.jpg" alt="Norseman"></div>
+        <div class="gitem" onclick="lb('imgs/ungfoten-3-2012_page_01.jpg')"><img src="imgs/ungfoten-3-2012_page_01.jpg" alt="Ungfoten"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- KONTAKT -->
 <section id="kontakt">
-  <div>
-    <h2 class="contact-intro reveal">La oss lage noe <em>bra</em> sammen.</h2>
-    <p class="reveal" style="color:#5a554e; font-size:0.95rem; line-height:1.8; max-width:380px;">Har du et prosjekt du ønsker hjelp med? Ta gjerne kontakt – jeg svarer raskt.</p>
-
-    <a href="https://www.linkedin.com/in/kjersma/" target="_blank" class="contact-link reveal">
-      <span class="contact-link-icon">in</span>
-      <span>LinkedIn – kjersma</span>
-    </a>
-    <a href="/cdn-cgi/l/email-protection#5c37313d3b32292f2f39327238392f353b321c3b313d3530723f3331" class="contact-link reveal">
-      <span class="contact-link-icon">@</span>
-      <span><span class="__cf_email__" data-cfemail="0d66606c6a63787e7e68632369687e646a634d6a606c6461236e6260">[email&#160;protected]</span></span>
-    </a>
-  </div>
-
-  <div>
-    <form class="contact-form reveal" id="contactForm">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="fname">Navn</label>
-          <input type="text" id="fname" name="name" placeholder="Ditt navn" required>
+  <div class="section-wrap">
+    <div class="contact-grid">
+      <div>
+        <h2 class="contact-intro">La oss lage noe <em>bra</em> sammen.</h2>
+        <p style="color:#5a554e; font-size:0.95rem; line-height:1.8; max-width:360px;">Har du et prosjekt du onsker hjelp med? Ta gjerne kontakt.</p>
+        <a href="https://www.linkedin.com/in/kjersma/" target="_blank" class="contact-link">
+          <span class="contact-icon">in</span>
+          <span>LinkedIn – kjersma</span>
+        </a>
+        <a href="mailto:kmagnussen.design@gmail.com" class="contact-link">
+          <span class="contact-icon">@</span>
+          <span>kmagnussen.design@gmail.com</span>
+        </a>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Navn</label>
+            <input type="text" name="name" placeholder="Ditt navn" required>
+          </div>
+          <div class="form-group">
+            <label>E-post</label>
+            <input type="email" name="email" placeholder="din@epost.no" required>
+          </div>
         </div>
         <div class="form-group">
-          <label for="femail">E-post</label>
-          <input type="email" id="femail" name="email" placeholder="din@epost.no" required>
+          <label>Emne</label>
+          <input type="text" name="subject" placeholder="Hva gjelder det?">
         </div>
-      </div>
-      <div class="form-group">
-        <label for="fsubject">Emne</label>
-        <input type="text" id="fsubject" name="subject" placeholder="Hva gjelder det?">
-      </div>
-      <div class="form-group">
-        <label for="fmsg">Melding</label>
-        <textarea id="fmsg" name="message" rows="5" placeholder="Fortell litt om prosjektet ditt..." required></textarea>
-      </div>
-      <button type="submit" class="form-submit">Send melding →</button>
-      <div class="form-success" id="formSuccess">Takk! Meldingen er sendt. Jeg tar kontakt snart.</div>
-    </form>
+        <div class="form-group">
+          <label>Melding</label>
+          <textarea name="message" rows="5" placeholder="Fortell litt om prosjektet..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send melding</button>
+      </form>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <a href="#" class="logo" style="color:#fff;">kjersma<span>.</span>no</a>
-  <span>© 2025 Kjersti Magnussen – Grafisk designer</span>
-  <a href="https://www.linkedin.com/in/kjersma/" target="_blank" style="color:var(--mid-gray); text-decoration:none;">LinkedIn</a>
+  <div class="footer-inner">
+    <a href="#" class="logo" style="color:#fff; font-size:1.2rem;">kjersma<span>.</span>no</a>
+    <span>2025 Kjersti Magnussen</span>
+    <a href="https://www.linkedin.com/in/kjersma/" target="_blank" style="color:#b0a99e; text-decoration:none;">LinkedIn</a>
+  </div>
 </footer>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">×</button>
-  <img id="lightbox-img" src="" alt="">
+<div class="lightbox" id="lightbox" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">x</button>
+  <img id="lb-img" src="" alt="">
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Nav scroll
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-  });
-
-  // Tabs
-  function switchTab(tab, btn) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + tab).classList.add('active');
-  }
-
-  // Legacy listener fallback
-  document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
-    btn.addEventListener('click', () => switchTab(btn.dataset.tab, btn));
-  });
-
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Lightbox
-  function openLightbox(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-  // Contact form → mailto
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = this.name.value;
-    const email = this.email.value;
-    const subject = encodeURIComponent(this.subject.value || 'Henvendelse fra kjersma.no');
-    const body = encodeURIComponent(`Hei Kjersti,\n\n${this.message.value}\n
+<script>
+function showTab(name) {
+  var btns = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-content');
+  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+  for (var i = 0; i < panels.length; i++) panels[i].classList.remove('active');
+  document.getElementById('btn-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+function lb(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var subject = encodeURIComponent(this.subject.value || 'Henvendelse fra kjersma.no');
+  var body = encodeURIComponent('Hei Kjersti,\n\n' + this.message.value + '\n\n' + this.name.value + '\n' + this.email.value);
+  window.location.href = 'mailto:kmagnussen.design@gmail.com?subject=' + subject + '&body=' + body;
+});
+</script>
+</body>
+</html>
