@@ -184,14 +184,21 @@
     <div class="tab-content active" id="tab-bannere">
       <div class="gallery">
         <div class="gitem" onclick="lb('imgs/1000x300_BW2_TU.jpg')"><img src="imgs/1000x300_BW2_TU.jpg" alt="TU Digi"></div>
-        <div class="gitem" onclick="lb('imgs/300x600_gdpr.jpg')"><img src="imgs/300x600_gdpr.jpg" alt="GDPR"></div>
         <div class="gitem" onclick="lb('imgs/1000x300_2025.jpg')"><img src="imgs/1000x300_2025.jpg" alt="Banner 2025"></div>
-        <div class="gitem" onclick="lb('imgs/300x600_Konferansierer.jpg')"><img src="imgs/300x600_Konferansierer.jpg" alt="Gulltasten"></div>
         <div class="gitem" onclick="lb('imgs/1000x300_20204.jpg')"><img src="imgs/1000x300_20204.jpg" alt="Software 2020"></div>
+        <div class="gitem" onclick="lb('imgs/300x600_gdpr.jpg')"><img src="imgs/300x600_gdpr.jpg" alt="GDPR"></div>
+        <div class="gitem" onclick="lb('imgs/300x600_Konferansierer.jpg')"><img src="imgs/300x600_Konferansierer.jpg" alt="Gulltasten"></div>
         <div class="gitem" onclick="lb('imgs/320x250_VA_aug25_3.jpg')"><img src="imgs/320x250_VA_aug25_3.jpg" alt="Oslo VA"></div>
-        <div class="gitem" onclick="lb('imgs/580x400-orer.jpg')"><img src="imgs/580x400-ører.jpg" alt="Paskekampanje"></div>
         <div class="gitem" onclick="lb('imgs/600x300_jul.jpg')"><img src="imgs/600x300_jul.jpg" alt="Tekjobb jul"></div>
+        <div class="gitem" onclick="lb('imgs/580x400-ører.jpg')"><img src="imgs/580x400-ører.jpg" alt="Paskekampanje"></div>
         <div class="gitem" onclick="lb('imgs/Signatur_2020_NY.jpg')"><img src="imgs/Signatur_2020_NY.jpg" alt="Signatur"></div>
+        <div class="gitem" onclick="window.open('imgs/tekjobb_banner/index.html','_blank')" style="position:relative;">
+          <img src="imgs/600x300_jul.jpg" alt="Tekjobb animert banner" style="filter:brightness(0.35);">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;pointer-events:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="#fff" stroke="none"/></svg>
+            <span style="color:#fff;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;">Se animert banner</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -202,7 +209,7 @@
         <div class="gitem" onclick="lb('imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg')"><img src="imgs/Vindkraft_Kostnad_Erik_260619_oppdatert-01.jpg" alt="Vindkraft"></div>
         <div class="gitem" onclick="lb('imgs/Solcelleprod_Tron_30112020-01.jpg')"><img src="imgs/Solcelleprod_Tron_30112020-01.jpg" alt="Solstrom"></div>
         <div class="gitem" onclick="lb('imgs/North-Sea-Link---Oppdatert-01.jpg')"><img src="imgs/North-Sea-Link---Oppdatert-01.jpg" alt="North Sea Link"></div>
-        <div class="gitem" onclick="lb('imgs/Ukraina_kjernekraft_Ellen_040322-_Recovered_-01.jpg')"><img src="imgs/Ukraina_kjernekraft_Ellen_040322-_Recovered_-01.jpg" alt="Ukraina"></div>
+        <div class="gitem" onclick="lb('imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg')"><img src="imgs/Ukraina_kjernekraft_Ellen_040322__Recovered_-01.jpg" alt="Ukraina"></div>
         <div class="gitem" onclick="lb('imgs/krigen-i-syria_km011215-011.jpg')"><img src="imgs/krigen-i-syria_km011215-011.jpg" alt="Syria 1"></div>
         <div class="gitem" onclick="lb('imgs/krigen-i-syria_km091215-011.jpg')"><img src="imgs/krigen-i-syria_km091215-011.jpg" alt="Syria 2"></div>
         <div class="gitem" onclick="lb('imgs/midtosten-terror_km251115-011.jpg')"><img src="imgs/midtosten-terror_km251115-011.jpg" alt="Terror"></div>
@@ -252,9 +259,9 @@
           <span class="contact-icon">in</span>
           <span>LinkedIn – kjersma</span>
         </a>
-        <a href="mailto:kmagnussen.design@gmail.com" class="contact-link">
+        <a href="/cdn-cgi/l/email-protection#a2c9cfc3c5ccd7d1d1c7cc8cc6c7d1cbc5cce2c5cfc3cbce8cc1cdcf" class="contact-link">
           <span class="contact-icon">@</span>
-          <span>kmagnussen.design@gmail.com</span>
+          <span><span class="__cf_email__" data-cfemail="9af1f7fbfdf4efe9e9fff4b4feffe9f3fdf4dafdf7fbf3f6b4f9f5f7">[email&#160;protected]</span></span>
         </a>
       </div>
       <form class="contact-form" id="contactForm">
@@ -295,7 +302,7 @@
   <img id="lb-img" src="" alt="">
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function showTab(name) {
   var btns = document.querySelectorAll('.tab-btn');
   var panels = document.querySelectorAll('.tab-content');
@@ -316,10 +323,4 @@ function closeLb() {
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  var subject = encodeURIComponent(this.subject.value || 'Henvendelse fra kjersma.no');
-  var body = encodeURIComponent('Hei Kjersti,\n\n' + this.message.value + '\n\n' + this.name.value + '\n' + this.email.value);
-  window.location.href = 'mailto:kmagnussen.design@gmail.com?subject=' + subject + '&body=' + body;
-});
-</script>
-</body>
-</html>
+  var subject = encodeURIComponent(this.subject.value || 'Henvendelse fra kjersma.no')
